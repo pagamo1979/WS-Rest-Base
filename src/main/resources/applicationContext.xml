@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context" xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:jee="http://www.springframework.org/schema/jee"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx.xsd
+http://www.springframework.org/schema/jee http://www.springframework.org/schema/jee/spring-jee.xsd"
+	default-autowire="byName">
+
+   
+	<!--jee:jndi-lookup id="dataSource" jndi-name="jdbc/ApiServipag" /-->
+	
+	<bean id="dataSource" class="org.springframework.jdbc.datasource.SingleConnectionDataSource">
+		<property name="driverClassName"	value="oracle.jdbc.driver.OracleDriver" />
+		<property name="url" value="jdbc:oracle:thin:@10.110.1.54:1522:orawapd2" />
+		<property name="username" value="por_exp" />
+		<property name="password" value="por_exp" />
+		<property name="suppressClose" value="true" />
+	</bean>
+  
+	<bean id="dao" class="cl.bice.integracion.movil.model.dao.ValidaFaDAOImp">
+		<property name="dataSource">
+			<ref bean="dataSource" />
+		</property>
+	</bean>
+	
+	<bean id="servicios" class="cl.bice.integracion.movil.rest.adapter.AgregarCtaAdapter"></bean>
+	
+	<context:component-scan base-package="cl.bice.integracion.movil.rest.dao" />
+
+
+</beans>
